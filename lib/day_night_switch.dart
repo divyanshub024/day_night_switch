@@ -5,10 +5,10 @@ import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 
-const double _kTrackHeight = 40.0;
-const double _kTrackWidth = 80.0;
+const double _kTrackHeight = 80.0;
+const double _kTrackWidth = 160.0;
 const double _kTrackRadius = _kTrackHeight / 2.0;
-const double _kThumbRadius = 18.0;
+const double _kThumbRadius = 36.0;
 const double _kSwitchWidth =
     _kTrackWidth - 2 * _kTrackRadius + 2 * kRadialReactionRadius;
 const double _kSwitchHeight = 2 * kRadialReactionRadius + 8.0;
@@ -368,10 +368,9 @@ class _RenderSwitch extends RenderToggleable {
 
     paintRadialReaction(canvas, offset, thumbPosition);
 
-    var strokeMinWidth = _kTrackHeight / 20;
     var linePaint = Paint()
       ..color = Colors.white
-      ..strokeWidth = strokeMinWidth + (strokeMinWidth * (1 - currentValue))
+      ..strokeWidth = 4 + (6 * (1 - currentValue))
       ..strokeCap = StrokeCap.round
       ..style = PaintingStyle.stroke;
 
@@ -396,7 +395,7 @@ class _RenderSwitch extends RenderToggleable {
     );
 
     var starPaint = Paint()
-      ..strokeWidth = strokeMinWidth + (strokeMinWidth * (1 - currentValue))
+      ..strokeWidth = 4 + (6 * (1 - currentValue))
       ..strokeCap = StrokeCap.round
       ..style = PaintingStyle.stroke
       ..color = Color.fromARGB((255 * currentValue).floor(), 255, 255, 255);
