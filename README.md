@@ -2,7 +2,7 @@
 
 A day night switch widget for Flutter.
 
-<img src="https://github.com/divyanshub024/day_night_switch/blob/master/day_night_switch.gif" />
+<img src="https://raw.githubusercontent.com/divyanshub024/day_night_switch/master/day_night_switch.gif" />
 
 ## Installation
 
