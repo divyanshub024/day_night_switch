@@ -1,8 +1,9 @@
 name: day_night_switch
-description: A new Flutter package.
+description: A day night switch widget for Flutter.
 version: 0.0.1
-author:
-homepage:
+authors:
+  - Divyanshu Bhargava<divyanshub024@gmail.com>
+homepage: https://github.com/divyanshub024/day_night_switch
 
 environment:
   sdk: ">=2.1.0 <3.0.0"

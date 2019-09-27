@@ -1,6 +1,7 @@
 import 'package:day_night_switch/day_night_switch.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:flutter/widgets.dart';
 
 void main() {
   SystemChrome.setEnabledSystemUIOverlays([]).then((_) {
@@ -65,7 +66,6 @@ class _MyHomePageState extends State<MyHomePage>
               bottom: 0,
               right: 0,
               left: 0,
-//              width: double.infinity,
               height: 200,
               child: Opacity(
                 opacity: val ? 0 : 1.0,
@@ -134,16 +134,14 @@ class _MyHomePageState extends State<MyHomePage>
               },
             ),
             Center(
-              child: Container(
-                child: DayNightSwitch(
-                  value: val,
-                  moonImage: AssetImage('assets/moon.png'),
-                  onChanged: (value) {
-                    setState(() {
-                      val = value;
-                    });
-                  },
-                ),
+              child: DayNightSwitch(
+                value: val,
+                moonImage: AssetImage('assets/moon.png'),
+                onChanged: (value) {
+                  setState(() {
+                    val = value;
+                  });
+                },
               ),
             ),
           ],
@@ -168,8 +166,6 @@ class _MyHomePageState extends State<MyHomePage>
             _buildContainer(400 * _controller.value),
             _buildContainer(500 * _controller.value),
             _buildContainer(600 * _controller.value),
-//            _buildContainer(500 * _controller.value),
-//            _buildContainer(600 * _controller.value),
             Center(
               child: SizedBox(
                 width: 256,

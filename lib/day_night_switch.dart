@@ -23,6 +23,8 @@ class DayNightSwitch extends StatefulWidget {
     this.sunImage,
     this.sunColor,
     this.moonColor,
+    this.dayColor,
+    this.nightColor,
   });
 
   final bool value;
@@ -33,6 +35,8 @@ class DayNightSwitch extends StatefulWidget {
   final ImageProvider moonImage;
   final Color sunColor;
   final Color moonColor;
+  final Color dayColor;
+  final Color nightColor;
 
   @override
   _DayNightSwitchState createState() => _DayNightSwitchState();
@@ -54,11 +58,11 @@ class _DayNightSwitchState extends State<DayNightSwitch>
     with TickerProviderStateMixin {
   @override
   Widget build(BuildContext context) {
-    final Color moonColor = const Color(0xFFf5f3ce);
-    final Color activeTrackColor = const Color(0xFF003366);
+    final Color moonColor = widget.moonColor ?? const Color(0xFFf5f3ce);
+    final Color nightColor = widget.nightColor ?? const Color(0xFF003366);
 
-    Color sunColor = const Color(0xFFFDB813);
-    Color inactiveTrackColor = const Color(0xFF87CEEB);
+    Color sunColor = widget.sunColor ?? const Color(0xFFFDB813);
+    Color dayColor = widget.dayColor ?? const Color(0xFF87CEEB);
 
     return _SwitchRenderObjectWidget(
       dragStartBehavior: widget.dragStartBehavior,
@@ -67,8 +71,8 @@ class _DayNightSwitchState extends State<DayNightSwitch>
       inactiveColor: sunColor,
       moonImage: widget.moonImage,
       sunImage: widget.sunImage,
-      activeTrackColor: activeTrackColor,
-      inactiveTrackColor: inactiveTrackColor,
+      activeTrackColor: nightColor,
+      inactiveTrackColor: dayColor,
       configuration: createLocalImageConfiguration(context),
       onChanged: widget.onChanged,
       additionalConstraints:
