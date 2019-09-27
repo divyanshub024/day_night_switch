@@ -108,7 +108,7 @@ class _MyHomePageState extends State<MyHomePage>
                         child: Opacity(
                           opacity: val ? 0.0 : 0.8,
                           child: Image.asset(
-                            'assets/cloud4.png',
+                            'assets/cloud2.png',
                             fit: BoxFit.cover,
                           ),
                         ),
@@ -123,7 +123,7 @@ class _MyHomePageState extends State<MyHomePage>
                         child: Opacity(
                           opacity: val ? 0.0 : 0.4,
                           child: Image.asset(
-                            'assets/cloud5.png',
+                            'assets/cloud3.png',
                             fit: BoxFit.cover,
                           ),
                         ),
