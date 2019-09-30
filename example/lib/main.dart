@@ -2,6 +2,7 @@ import 'package:day_night_switch/day_night_switch.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter/widgets.dart';
+import './test.dart';
 
 void main() {
   SystemChrome.setEnabledSystemUIOverlays([]).then((_) {
@@ -49,6 +50,8 @@ class _MyHomePageState extends State<MyHomePage>
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      appBar: AppBar(),
+      drawer: drawer(),
       backgroundColor: const Color(0xFF414a4c),
       body: AnimatedContainer(
         color: val ? nightColor : dayColor,
@@ -135,6 +138,7 @@ class _MyHomePageState extends State<MyHomePage>
             ),
             Center(
               child: DayNightSwitch(
+                size: 10,
                 value: val,
                 moonImage: AssetImage('assets/moon.png'),
                 onChanged: (value) {
@@ -206,6 +210,32 @@ class _MyHomePageState extends State<MyHomePage>
           radius: 2,
           backgroundColor: Colors.white,
         ),
+      ),
+    );
+  }
+
+  Widget drawer() {
+    return Drawer(
+      child: ListView(
+        children: <Widget>[
+          UserAccountsDrawerHeader(
+            accountEmail: Text('test'),
+            accountName: Text('test'),
+          ),
+          ListTile(
+            title: Text('Switch'),
+            trailing: DayNightSwitch(
+              size: 4,
+              value: val,
+              moonImage: AssetImage('assets/moon.png'),
+              onChanged: (value) {
+                setState(() {
+                  val = value;
+                });
+              },
+            ),
+          ),
+        ],
       ),
     );
   }
