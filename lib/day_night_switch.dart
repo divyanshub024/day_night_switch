@@ -17,6 +17,7 @@ class DayNightSwitch extends StatefulWidget {
   const DayNightSwitch({
     @required this.value,
     @required this.onChanged,
+    @required this.size,
     this.dragStartBehavior = DragStartBehavior.start,
     this.height,
     this.moonImage,
@@ -26,7 +27,7 @@ class DayNightSwitch extends StatefulWidget {
     this.dayColor,
     this.nightColor,
   });
-
+  final double size;
   final bool value;
   final ValueChanged<bool> onChanged;
   final DragStartBehavior dragStartBehavior;
@@ -56,6 +57,14 @@ class DayNightSwitch extends StatefulWidget {
 
 class _DayNightSwitchState extends State<DayNightSwitch>
     with TickerProviderStateMixin {
+  double size;
+
+  @override
+  void initState() {
+    size = widget.size / 10;
+    super.initState();
+  }
+
   @override
   Widget build(BuildContext context) {
     final Color moonColor = widget.moonColor ?? const Color(0xFFf5f3ce);
@@ -64,20 +73,23 @@ class _DayNightSwitchState extends State<DayNightSwitch>
     Color sunColor = widget.sunColor ?? const Color(0xFFFDB813);
     Color dayColor = widget.dayColor ?? const Color(0xFF87CEEB);
 
-    return _SwitchRenderObjectWidget(
-      dragStartBehavior: widget.dragStartBehavior,
-      value: widget.value,
-      activeColor: moonColor,
-      inactiveColor: sunColor,
-      moonImage: widget.moonImage,
-      sunImage: widget.sunImage,
-      activeTrackColor: nightColor,
-      inactiveTrackColor: dayColor,
-      configuration: createLocalImageConfiguration(context),
-      onChanged: widget.onChanged,
-      additionalConstraints:
-          BoxConstraints.tight(Size(_kSwitchWidth, _kSwitchHeight)),
-      vsync: this,
+    return Transform.scale(
+      scale: size,
+      child: _SwitchRenderObjectWidget(
+        dragStartBehavior: widget.dragStartBehavior,
+        value: widget.value,
+        activeColor: moonColor,
+        inactiveColor: sunColor,
+        moonImage: widget.moonImage,
+        sunImage: widget.sunImage,
+        activeTrackColor: nightColor,
+        inactiveTrackColor: dayColor,
+        configuration: createLocalImageConfiguration(context),
+        onChanged: widget.onChanged,
+        additionalConstraints:
+            BoxConstraints.tight(Size(_kSwitchWidth, _kSwitchHeight)),
+        vsync: this,
+      ),
     );
   }
 }
