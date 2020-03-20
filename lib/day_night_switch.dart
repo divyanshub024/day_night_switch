@@ -17,6 +17,7 @@ class DayNightSwitch extends StatefulWidget {
   const DayNightSwitch({
     @required this.value,
     @required this.onChanged,
+    this.onDrag,
     this.dragStartBehavior = DragStartBehavior.start,
     this.height,
     this.moonImage,
@@ -29,6 +30,7 @@ class DayNightSwitch extends StatefulWidget {
 
   final bool value;
   final ValueChanged<bool> onChanged;
+  final ValueChanged<double> onDrag;
   final DragStartBehavior dragStartBehavior;
   final double height;
   final ImageProvider sunImage;
@@ -75,6 +77,7 @@ class _DayNightSwitchState extends State<DayNightSwitch>
       inactiveTrackColor: dayColor,
       configuration: createLocalImageConfiguration(context),
       onChanged: widget.onChanged,
+      onDrag: widget.onDrag,
       additionalConstraints:
           BoxConstraints.tight(Size(_kSwitchWidth, _kSwitchHeight)),
       vsync: this,
@@ -94,6 +97,7 @@ class _SwitchRenderObjectWidget extends LeafRenderObjectWidget {
     this.inactiveTrackColor,
     this.configuration,
     this.onChanged,
+    this.onDrag,
     this.vsync,
     this.additionalConstraints,
     this.dragStartBehavior,
@@ -108,6 +112,7 @@ class _SwitchRenderObjectWidget extends LeafRenderObjectWidget {
   final Color inactiveTrackColor;
   final ImageConfiguration configuration;
   final ValueChanged<bool> onChanged;
+  final ValueChanged<double> onDrag;
   final TickerProvider vsync;
   final BoxConstraints additionalConstraints;
   final DragStartBehavior dragStartBehavior;
@@ -125,6 +130,7 @@ class _SwitchRenderObjectWidget extends LeafRenderObjectWidget {
       inactiveTrackColor: inactiveTrackColor,
       configuration: configuration,
       onChanged: onChanged,
+      onDrag: onDrag,
       textDirection: Directionality.of(context),
       additionalConstraints: additionalConstraints,
       vSync: vsync,
@@ -143,6 +149,7 @@ class _SwitchRenderObjectWidget extends LeafRenderObjectWidget {
       ..inactiveTrackColor = inactiveTrackColor
       ..configuration = configuration
       ..onChanged = onChanged
+      ..onDrag = onDrag
       ..textDirection = Directionality.of(context)
       ..additionalConstraints = additionalConstraints
       ..dragStartBehavior = dragStartBehavior
@@ -151,6 +158,7 @@ class _SwitchRenderObjectWidget extends LeafRenderObjectWidget {
 }
 
 class _RenderSwitch extends RenderToggleable {
+  ValueChanged<double> onDrag;
   _RenderSwitch({
     bool value,
     Color activeColor,
@@ -163,6 +171,7 @@ class _RenderSwitch extends RenderToggleable {
     BoxConstraints additionalConstraints,
     @required TextDirection textDirection,
     ValueChanged<bool> onChanged,
+    this.onDrag,
     @required TickerProvider vSync,
     DragStartBehavior dragStartBehavior,
   })  : assert(textDirection != null),
@@ -276,6 +285,7 @@ class _RenderSwitch extends RenderToggleable {
           positionController.value += delta;
           break;
       }
+      positionController.addListener(() {onDrag(positionController.value);});
     }
   }
 
