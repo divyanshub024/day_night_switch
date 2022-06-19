@@ -33,7 +33,8 @@ class MyHomePage extends StatefulWidget {
   MyHomePageState createState() => MyHomePageState();
 }
 
-class MyHomePageState extends State<MyHomePage> with SingleTickerProviderStateMixin {
+class MyHomePageState extends State<MyHomePage>
+    with SingleTickerProviderStateMixin {
   bool val = false;
   late AnimationController _controller;
   late Size size;
@@ -158,7 +159,8 @@ class MyHomePageState extends State<MyHomePage> with SingleTickerProviderStateMi
       width: double.maxFinite,
       height: double.maxFinite,
       child: AnimatedBuilder(
-        animation: CurvedAnimation(parent: _controller, curve: Curves.fastOutSlowIn),
+        animation:
+            CurvedAnimation(parent: _controller, curve: Curves.fastOutSlowIn),
         builder: (context, child) {
           return Stack(
             alignment: Alignment.center,
@@ -188,7 +190,8 @@ class MyHomePageState extends State<MyHomePage> with SingleTickerProviderStateMi
       height: radius,
       decoration: BoxDecoration(
         shape: BoxShape.circle,
-        color: (val ? Colors.amber[100] : Colors.orangeAccent)?.withOpacity(1 - _controller.value),
+        color: (val ? Colors.amber[100] : Colors.orangeAccent)
+            ?.withOpacity(1 - _controller.value),
       ),
     );
   }

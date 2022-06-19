@@ -43,7 +43,8 @@ class DayNightSwitch extends StatefulWidget {
   State<DayNightSwitch> createState() => _DayNightSwitchState();
 }
 
-class _DayNightSwitchState extends State<DayNightSwitch> with TickerProviderStateMixin, ToggleableStateMixin {
+class _DayNightSwitchState extends State<DayNightSwitch>
+    with TickerProviderStateMixin, ToggleableStateMixin {
   final _painter = _DayNightSwitchPainter();
 
   @override
@@ -66,7 +67,8 @@ class _DayNightSwitchState extends State<DayNightSwitch> with TickerProviderStat
   }
 
   @override
-  ValueChanged<bool?>? get onChanged => widget.onChanged != null ? _handleChanged : null;
+  ValueChanged<bool?>? get onChanged =>
+      widget.onChanged != null ? _handleChanged : null;
 
   @override
   bool get tristate => false;
@@ -129,10 +131,13 @@ class _DayNightSwitchState extends State<DayNightSwitch> with TickerProviderStat
     final SwitchThemeData switchTheme = SwitchTheme.of(context);
 
     final MaterialStateProperty<MouseCursor> effectiveMouseCursor =
-        MaterialStateProperty.resolveWith<MouseCursor>((Set<MaterialState> states) {
-      return MaterialStateProperty.resolveAs<MouseCursor?>(widget.mouseCursor, states) ??
+        MaterialStateProperty.resolveWith<MouseCursor>(
+            (Set<MaterialState> states) {
+      return MaterialStateProperty.resolveAs<MouseCursor?>(
+              widget.mouseCursor, states) ??
           switchTheme.mouseCursor?.resolve(states) ??
-          MaterialStateProperty.resolveAs<MouseCursor>(MaterialStateMouseCursor.clickable, states);
+          MaterialStateProperty.resolveAs<MouseCursor>(
+              MaterialStateMouseCursor.clickable, states);
     });
 
     return Semantics(
@@ -275,7 +280,8 @@ class _DayNightSwitchPainter extends ToggleablePainter {
   ImageProvider? _cachedThumbImage;
   BoxPainter? _cachedThumbPainter;
 
-  BoxDecoration _createDefaultThumbDecoration(Color color, ImageProvider? image) {
+  BoxDecoration _createDefaultThumbDecoration(
+      Color color, ImageProvider? image) {
     return BoxDecoration(
       color: color,
       image: image == null ? null : DecorationImage(image: image),
@@ -302,11 +308,13 @@ class _DayNightSwitchPainter extends ToggleablePainter {
     final Color trackColor = Color.lerp(dayColor, nightColor, currentValue)!;
     final Color thumbColor = Color.lerp(sunColor, moonColor, currentValue)!;
 
-    final ImageProvider? thumbImage = isEnabled ? (currentValue < 0.5 ? sunImage : moonImage) : sunImage;
+    final ImageProvider? thumbImage =
+        isEnabled ? (currentValue < 0.5 ? sunImage : moonImage) : sunImage;
     final trackPaint = Paint()..color = trackColor;
     final linePaint = Paint()
       ..color = Colors.white
-      ..strokeWidth = _kTrackHeight * 0.05 + _kTrackHeight * 0.05 * (1 - currentValue)
+      ..strokeWidth =
+          _kTrackHeight * 0.05 + _kTrackHeight * 0.05 * (1 - currentValue)
       ..strokeCap = StrokeCap.round
       ..style = PaintingStyle.stroke;
 
@@ -316,13 +324,17 @@ class _DayNightSwitchPainter extends ToggleablePainter {
       ..strokeCap = StrokeCap.round
       ..style = PaintingStyle.stroke;
 
-    final Offset trackPaintOffset = _computeTrackPaintOffset(size, _kTrackWidth, _kTrackHeight);
+    final Offset trackPaintOffset =
+        _computeTrackPaintOffset(size, _kTrackWidth, _kTrackHeight);
     final double thumbRadius = _kThumbRadius;
-    final Offset thumbPaintOffset = _computeThumbPaintOffset(trackPaintOffset, visualPosition, thumbRadius);
-    final Offset radialReactionOrigin = Offset(thumbPaintOffset.dx + _kThumbRadius, size.height / 2);
+    final Offset thumbPaintOffset =
+        _computeThumbPaintOffset(trackPaintOffset, visualPosition, thumbRadius);
+    final Offset radialReactionOrigin =
+        Offset(thumbPaintOffset.dx + _kThumbRadius, size.height / 2);
 
     _paintTrack(canvas, trackPaint, trackPaintOffset);
-    _paintBackground(canvas, linePaint, starPaint, trackPaintOffset, currentValue);
+    _paintBackground(
+        canvas, linePaint, starPaint, trackPaintOffset, currentValue);
     paintRadialReaction(canvas: canvas, origin: radialReactionOrigin);
     _paintThumb(
       canvas,
@@ -336,7 +348,8 @@ class _DayNightSwitchPainter extends ToggleablePainter {
   }
 
   /// Computes canvas offset for track's upper left corner
-  Offset _computeTrackPaintOffset(Size canvasSize, double trackWidth, double trackHeight) {
+  Offset _computeTrackPaintOffset(
+      Size canvasSize, double trackWidth, double trackHeight) {
     final double horizontalOffset = (canvasSize.width - _kTrackWidth) / 2.0;
     final double verticalOffset = (canvasSize.height - _kTrackHeight) / 2.0;
 
@@ -345,13 +358,16 @@ class _DayNightSwitchPainter extends ToggleablePainter {
 
   /// Computes canvas offset for thumb's upper left corner as if it were a
   /// square
-  Offset _computeThumbPaintOffset(Offset trackPaintOffset, double visualPosition, double thumbRadius) {
+  Offset _computeThumbPaintOffset(
+      Offset trackPaintOffset, double visualPosition, double thumbRadius) {
     // How much thumb radius extends beyond the track
     final double additionalThumbRadius = thumbRadius - _kTrackRadius;
 
     final double horizontalProgress = visualPosition * trackInnerLength;
-    final double thumbHorizontalOffset = trackPaintOffset.dx - additionalThumbRadius + horizontalProgress;
-    final double thumbVerticalOffset = trackPaintOffset.dy - additionalThumbRadius;
+    final double thumbHorizontalOffset =
+        trackPaintOffset.dx - additionalThumbRadius + horizontalProgress;
+    final double thumbVerticalOffset =
+        trackPaintOffset.dy - additionalThumbRadius;
 
     return Offset(thumbHorizontalOffset, thumbVerticalOffset);
   }
@@ -370,14 +386,17 @@ class _DayNightSwitchPainter extends ToggleablePainter {
     canvas.drawRRect(trackRRect, paint);
   }
 
-  void _paintBackground(Canvas canvas, Paint paint, Paint starPaint, Offset offset, double currentValue) {
+  void _paintBackground(Canvas canvas, Paint paint, Paint starPaint,
+      Offset offset, double currentValue) {
     canvas.drawLine(
       Offset(
         offset.dx + _kTrackWidth * 0.2,
         offset.dy + _kTrackHeight * 0.2,
       ),
       Offset(
-        offset.dx + _kTrackWidth * 0.2 + (_kTrackWidth * 0.4) * (1 - currentValue),
+        offset.dx +
+            _kTrackWidth * 0.2 +
+            (_kTrackWidth * 0.4) * (1 - currentValue),
         offset.dy + _kTrackHeight * 0.2,
       ),
       paint,
@@ -389,7 +408,9 @@ class _DayNightSwitchPainter extends ToggleablePainter {
         offset.dy + _kTrackHeight * 0.8,
       ),
       Offset(
-        offset.dx + _kTrackWidth * 0.25 + (_kTrackWidth * 0.3) * (1 - currentValue),
+        offset.dx +
+            _kTrackWidth * 0.25 +
+            (_kTrackWidth * 0.3) * (1 - currentValue),
         offset.dy + _kTrackHeight * 0.8,
       ),
       paint,
@@ -418,12 +439,15 @@ class _DayNightSwitchPainter extends ToggleablePainter {
   ) {
     try {
       _isPainting = true;
-      if (_cachedThumbPainter == null || thumbColor != _cachedThumbColor || thumbImage != _cachedThumbImage) {
+      if (_cachedThumbPainter == null ||
+          thumbColor != _cachedThumbColor ||
+          thumbImage != _cachedThumbImage) {
         _cachedThumbColor = thumbColor;
         _cachedThumbImage = thumbImage;
         _cachedThumbPainter?.dispose();
         _cachedThumbPainter =
-            _createDefaultThumbDecoration(thumbColor, thumbImage).createBoxPainter(_handleDecorationChanged);
+            _createDefaultThumbDecoration(thumbColor, thumbImage)
+                .createBoxPainter(_handleDecorationChanged);
       }
       final BoxPainter thumbPainter = _cachedThumbPainter!;
 
@@ -443,14 +467,17 @@ class _DayNightSwitchPainter extends ToggleablePainter {
     }
   }
 
-  void _paintForegroundLines(Canvas canvas, Paint paint, Offset offset, double currentValue) {
+  void _paintForegroundLines(
+      Canvas canvas, Paint paint, Offset offset, double currentValue) {
     canvas.drawLine(
       Offset(
         offset.dx + _kTrackWidth * 0.35,
         offset.dy + _kTrackHeight * 0.5,
       ),
       Offset(
-        offset.dx + _kTrackWidth * 0.35 + (_kTrackWidth * 0.4) * (1 - currentValue),
+        offset.dx +
+            _kTrackWidth * 0.35 +
+            (_kTrackWidth * 0.4) * (1 - currentValue),
         offset.dy + _kTrackHeight * 0.5,
       ),
       paint,
