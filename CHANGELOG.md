@@ -1,3 +1,7 @@
+## [1.0.3]
+
+* Fix code formatting
+
 ## [1.0.2]
 
 * Fix static analysis
