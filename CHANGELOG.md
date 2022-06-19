@@ -1,12 +1,12 @@
-## [0.0.1]
+## [1.0.0]
 
-* Initial build for flutter sign in button library.
+* Null safetly support
+* Upgrade to Android embedding v2
 
 ## [0.0.2]
 
 * Docs updated
 
-## [1.0.0]
+## [0.0.1]
 
-* Null safetly support
-* Upgrade to Android embedding v2
+* Initial build for flutter sign in button library.
