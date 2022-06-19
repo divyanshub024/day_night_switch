@@ -1,17 +1,18 @@
 import 'dart:math';
 
 import 'package:day_night_switch/day_night_switch.dart';
-import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 
 void main() {
-  runApp(MyApp());
+  runApp(const MyApp());
 }
 
 const dayColor = Color(0xFFd56352);
-var nightColor = Color(0xFF1e2230);
+const nightColor = Color(0xFF1e2230);
 
 class MyApp extends StatelessWidget {
+  const MyApp({super.key});
+
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
@@ -20,17 +21,19 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(
         primarySwatch: Colors.blue,
       ),
-      home: MyHomePage(),
+      home: const MyHomePage(),
     );
   }
 }
 
 class MyHomePage extends StatefulWidget {
+  const MyHomePage({super.key});
+
   @override
-  _MyHomePageState createState() => _MyHomePageState();
+  MyHomePageState createState() => MyHomePageState();
 }
 
-class _MyHomePageState extends State<MyHomePage> with SingleTickerProviderStateMixin {
+class MyHomePageState extends State<MyHomePage> with SingleTickerProviderStateMixin {
   bool val = false;
   late AnimationController _controller;
   late Size size;
@@ -41,7 +44,7 @@ class _MyHomePageState extends State<MyHomePage> with SingleTickerProviderStateM
     _controller = AnimationController(
       vsync: this,
       lowerBound: 0.5,
-      duration: Duration(seconds: 5),
+      duration: const Duration(seconds: 5),
     )..repeat();
   }
 
@@ -52,7 +55,7 @@ class _MyHomePageState extends State<MyHomePage> with SingleTickerProviderStateM
       backgroundColor: const Color(0xFF414a4c),
       body: AnimatedContainer(
         color: val ? nightColor : dayColor,
-        duration: Duration(milliseconds: 300),
+        duration: const Duration(milliseconds: 300),
         child: Stack(
           children: <Widget>[
             ..._buildStars(20),
@@ -131,7 +134,7 @@ class _MyHomePageState extends State<MyHomePage> with SingleTickerProviderStateM
             Center(
               child: DayNightSwitch(
                 value: val,
-                moonImage: AssetImage('assets/moon.png'),
+                moonImage: const AssetImage('assets/moon.png'),
                 onChanged: (value) {
                   setState(() {
                     val = value;
@@ -144,7 +147,7 @@ class _MyHomePageState extends State<MyHomePage> with SingleTickerProviderStateM
       ),
       floatingActionButtonLocation: FloatingActionButtonLocation.endTop,
       floatingActionButton: Transform.translate(
-        offset: Offset(160, -360),
+        offset: const Offset(160, -360),
         child: _buildSun(),
       ),
     );
@@ -168,8 +171,8 @@ class _MyHomePageState extends State<MyHomePage> with SingleTickerProviderStateM
                 height: 256,
                 child: val
                     ? Image.asset('assets/moon.png')
-                    : CircleAvatar(
-                        backgroundColor: const Color(0xFFFDB813),
+                    : const CircleAvatar(
+                        backgroundColor: Color(0xFFFDB813),
                       ),
               ),
             ],
@@ -218,7 +221,7 @@ class _MyHomePageState extends State<MyHomePage> with SingleTickerProviderStateM
       left: left,
       child: Opacity(
         opacity: val ? 1 : 0,
-        child: CircleAvatar(
+        child: const CircleAvatar(
           radius: 2,
           backgroundColor: Colors.white,
         ),

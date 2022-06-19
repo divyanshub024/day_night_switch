@@ -1,5 +1,5 @@
 name: day_night_switch
-description: A day night switch widget for Flutter.
+description: An easy to implement custom day night switch widget for Flutter. It can be highly customized with day & night colors and images.
 version: 1.0.1
 homepage: https://github.com/divyanshub024/day_night_switch
 repository: https://github.com/divyanshub024/day_night_switch
@@ -7,7 +7,7 @@ issue_tracker: https://github.com/divyanshub024/day_night_switch/issues
 documentation: https://github.com/divyanshub024/day_night_switch/blob/master/README.md
 
 environment:
-  sdk: ">=2.17.3 <3.0.0"
+  sdk: ">=2.17.1 <3.0.0"
 
 dependencies:
   flutter:
@@ -16,3 +16,4 @@ dependencies:
 dev_dependencies:
   flutter_test:
     sdk: flutter
+  lints: ^2.0.0
