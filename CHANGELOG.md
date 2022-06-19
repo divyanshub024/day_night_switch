@@ -5,3 +5,8 @@
 ## [0.0.2]
 
 * Docs updated
+
+## [1.0.0]
+
+* Null safetly support
+* Upgrade to Android embedding v2
