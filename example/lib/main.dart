@@ -1,12 +1,11 @@
+import 'dart:math';
+
 import 'package:day_night_switch/day_night_switch.dart';
+import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
-import 'package:flutter/widgets.dart';
 
 void main() {
-  SystemChrome.setEnabledSystemUIOverlays([]).then((_) {
-    runApp(MyApp());
-  });
+  runApp(MyApp());
 }
 
 const dayColor = Color(0xFFd56352);
@@ -31,10 +30,10 @@ class MyHomePage extends StatefulWidget {
   _MyHomePageState createState() => _MyHomePageState();
 }
 
-class _MyHomePageState extends State<MyHomePage>
-    with SingleTickerProviderStateMixin {
-  var val = false;
-  AnimationController _controller;
+class _MyHomePageState extends State<MyHomePage> with SingleTickerProviderStateMixin {
+  bool val = false;
+  late AnimationController _controller;
+  late Size size;
 
   @override
   void initState() {
@@ -48,6 +47,7 @@ class _MyHomePageState extends State<MyHomePage>
 
   @override
   Widget build(BuildContext context) {
+    size = MediaQuery.of(context).size;
     return Scaffold(
       backgroundColor: const Color(0xFF414a4c),
       body: AnimatedContainer(
@@ -55,13 +55,7 @@ class _MyHomePageState extends State<MyHomePage>
         duration: Duration(milliseconds: 300),
         child: Stack(
           children: <Widget>[
-            buildStar(top: 100, left: 40, val: val),
-            buildStar(top: 200, left: 80, val: val),
-            buildStar(top: 300, left: 10, val: val),
-            buildStar(top: 500, left: 100, val: val),
-            buildStar(top: 300, right: 40, val: val),
-            buildStar(top: 250, right: 100, val: val),
-            buildStar(top: 450, right: 80, val: val),
+            ..._buildStars(20),
             Positioned(
               bottom: 0,
               right: 0,
@@ -133,6 +127,7 @@ class _MyHomePageState extends State<MyHomePage>
                 );
               },
             ),
+            // _buildSun(),
             Center(
               child: DayNightSwitch(
                 value: val,
@@ -149,25 +144,26 @@ class _MyHomePageState extends State<MyHomePage>
       ),
       floatingActionButtonLocation: FloatingActionButtonLocation.endTop,
       floatingActionButton: Transform.translate(
-        offset: Offset(140, 40),
-        child: _buildFab(),
+        offset: Offset(160, -360),
+        child: _buildSun(),
       ),
     );
   }
 
-  Widget _buildFab() {
-    return AnimatedBuilder(
-      animation:
-          CurvedAnimation(parent: _controller, curve: Curves.fastOutSlowIn),
-      builder: (context, child) {
-        return Stack(
-          alignment: Alignment.center,
-          children: <Widget>[
-            _buildContainer(400 * _controller.value),
-            _buildContainer(500 * _controller.value),
-            _buildContainer(600 * _controller.value),
-            Center(
-              child: SizedBox(
+  Widget _buildSun() {
+    return SizedBox(
+      width: double.maxFinite,
+      height: double.maxFinite,
+      child: AnimatedBuilder(
+        animation: CurvedAnimation(parent: _controller, curve: Curves.fastOutSlowIn),
+        builder: (context, child) {
+          return Stack(
+            alignment: Alignment.center,
+            children: <Widget>[
+              _buildContainer(400 * _controller.value),
+              _buildContainer(500 * _controller.value),
+              _buildContainer(600 * _controller.value),
+              SizedBox(
                 width: 256,
                 height: 256,
                 child: val
@@ -176,10 +172,10 @@ class _MyHomePageState extends State<MyHomePage>
                         backgroundColor: const Color(0xFFFDB813),
                       ),
               ),
-            ),
-          ],
-        );
-      },
+            ],
+          );
+        },
+      ),
     );
   }
 
@@ -189,16 +185,36 @@ class _MyHomePageState extends State<MyHomePage>
       height: radius,
       decoration: BoxDecoration(
         shape: BoxShape.circle,
-        color: (val ? Colors.amber[100] : Colors.orangeAccent)
-            .withOpacity(1 - _controller.value),
+        color: (val ? Colors.amber[100] : Colors.orangeAccent)?.withOpacity(1 - _controller.value),
       ),
     );
   }
 
-  buildStar({double top, double left, double right, bool val}) {
+  List<Widget> _buildStars(int starCount) {
+    List<Widget> stars = [];
+    for (int i = 0; i < starCount; i++) {
+      stars.add(_buildStar(top: randomX, left: randomY, val: val));
+    }
+    return stars;
+  }
+
+  double get randomX {
+    int maxX = (size.height).toInt();
+    return Random().nextInt(maxX).toDouble();
+  }
+
+  double get randomY {
+    int maxY = (size.width).toInt();
+    return Random().nextInt(maxY).toDouble();
+  }
+
+  Widget _buildStar({
+    double top = 0,
+    double left = 0,
+    bool val = false,
+  }) {
     return Positioned(
       top: top,
-      right: right,
       left: left,
       child: Opacity(
         opacity: val ? 1 : 0,
