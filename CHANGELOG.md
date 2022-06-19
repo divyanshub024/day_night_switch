@@ -1,3 +1,7 @@
+## [1.0.2]
+
+* Fix static analysis
+
 ## [1.0.1]
 
 * Changed Licence to MIT
