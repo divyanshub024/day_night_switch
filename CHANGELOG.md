@@ -1,3 +1,8 @@
+## [1.0.1]
+
+* Changed Licence to MIT
+* minor fixes
+
 ## [1.0.0]
 
 * Null safetly support
