@@ -7,7 +7,7 @@ issue_tracker: https://github.com/divyanshub024/day_night_switch/issues
 documentation: https://github.com/divyanshub024/day_night_switch/blob/master/README.md
 
 environment:
-  sdk: ">=2.17.1 <3.0.0"
+  sdk: '>=2.17.1 <4.0.0'
 
 dependencies:
   flutter:

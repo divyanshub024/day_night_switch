@@ -1,3 +1,7 @@
+## [1.0.4]
+
+* Dispose controller
+
 ## [1.0.3]
 
 * Fix code formatting
