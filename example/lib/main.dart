@@ -50,6 +50,12 @@ class MyHomePageState extends State<MyHomePage>
   }
 
   @override
+  void dispose() {
+    _controller.dispose();
+    super.dispose();
+  }
+
+  @override
   Widget build(BuildContext context) {
     size = MediaQuery.of(context).size;
     return Scaffold(
